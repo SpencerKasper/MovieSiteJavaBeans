@@ -87,7 +87,7 @@ public class CustomerTransactionConfirmation extends HttpServlet {
 			ticketsdb.addTicket(shoppingCart.get(i));
 			ticketsdb.closeConnection();
 			
-			/* Update avaliable tickets */
+			/* Update avaliable tickets in DB */
 			movieshowingsdb.connectMeIn();
 			int newTicketAmount = shoppingCart.get(i).getShowing().getAvailableSeats() - shoppingCart.get(i).getQuantity();
 			movieshowingsdb.updateShowingAvailability(shoppingCart.get(i).getShowing().getMovieShowingID(), newTicketAmount);
@@ -100,7 +100,7 @@ public class CustomerTransactionConfirmation extends HttpServlet {
 		sess.setAttribute("shoppingCart", newShoppingCart);
 		
 		/* Set the orderID in the request and redirect */
-		request.setAttribute("orderID", orderID);
+		request.setAttribute("orderID", orderID);    
 		request.getRequestDispatcher("/CustomerTransactionConfirmation.jsp").forward(request, response);
 	}
 
